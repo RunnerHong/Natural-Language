@@ -241,7 +241,51 @@ namespace WindowsFormsApp1
 
         public void RenderDepResult(JObject result)
         {
-            // TODO: render the result
+            result.TryGetValue("items", out JToken items);
+            Dictionary<int, List<JToken>> indexingItems = new Dictionary<int, List<JToken>>();
+            // generate indexing items dict
+            foreach (var item in items)
+            {
+                int head = item.Value<int>("head");
+                if (!indexingItems.ContainsKey(head))
+                {
+                    List<JToken> list = new List<JToken>();
+                    list.Add(item);
+                    indexingItems.Add(head, list);
+                }
+                else
+                {
+                    indexingItems[head].Add(item);
+                }
+            }
+            // render the result
+            void Recursion(int index=0, TreeNode node=null)
+            {
+                if (!indexingItems.ContainsKey(index))
+                {
+                    return;
+                }
+                foreach (var item in indexingItems[index])
+                {
+                    posTranslation.TryGetValue(item["postag"].ToString(), out JToken pos);
+                    TreeNode newNode = new TreeNode(string.Format("{0}({1})", item["word"].ToString(), DeprelTable[item["deprel"].ToString()]))
+                    {                    
+                        ToolTipText = pos.ToString()
+                    };
+                    if (index == 0)
+                    {
+                        treeView1.Nodes.Add(newNode);
+                    }
+                    else
+                    {
+                        node.Nodes.Add(newNode);
+                    }
+                    Recursion(item.Value<int>("id"), newNode);
+                }
+            }
+            treeView1.Nodes.Clear();
+            Recursion();
+            treeView1.ExpandAll();
         }
 
         private void Button2_Click(object sender, EventArgs e)
