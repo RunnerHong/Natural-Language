@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-    partial class naturalSpeech
+    partial class naturalLanguage
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -26,25 +26,26 @@
         /// 设计器支持所需的方法 - 不要修改
         /// 使用代码编辑器修改此方法的内容。
         /// </summary>
+        /// TODO:handle the name of components
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("序号");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("分词");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("概率值");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("序号");
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("分词");
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("词性");
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("基本词");
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.listView2 = new System.Windows.Forms.ListView();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button3 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -93,10 +94,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.treeView1);
             this.groupBox1.Controls.Add(this.listView2);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.comboBox1);
@@ -106,28 +107,48 @@
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Location = new System.Drawing.Point(12, 24);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(251, 511);
+            this.groupBox1.Size = new System.Drawing.Size(285, 511);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "词法分析/依存句法分析/DNN语言模型";
-            this.groupBox1.Enter += new System.EventHandler(this.GroupBox1_Enter);
+            // 
+            // treeView1
+            // 
+            this.treeView1.Location = new System.Drawing.Point(11, 235);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(265, 114);
+            this.treeView1.TabIndex = 10;
             // 
             // listView2
             // 
+            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7});
             this.listView2.HideSelection = false;
-            this.listView2.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
             this.listView2.Location = new System.Drawing.Point(7, 398);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(238, 96);
+            this.listView2.Size = new System.Drawing.Size(269, 96);
             this.listView2.TabIndex = 9;
             this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "序号";
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "分词";
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "概率值";
+            this.columnHeader7.Width = 80;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(147, 369);
+            this.button3.Location = new System.Drawing.Point(178, 369);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(98, 23);
             this.button3.TabIndex = 8;
@@ -141,14 +162,6 @@
             this.textBox3.Size = new System.Drawing.Size(64, 21);
             this.textBox3.TabIndex = 0;
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(11, 240);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(234, 113);
-            this.textBox2.TabIndex = 7;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -160,12 +173,13 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(147, 193);
+            this.button2.Location = new System.Drawing.Point(178, 206);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(98, 23);
             this.button2.TabIndex = 5;
             this.button2.Text = "依存句法分析";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Button2_Click);
             // 
             // comboBox1
             // 
@@ -174,7 +188,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Web模型",
             "Query模型"});
-            this.comboBox1.Location = new System.Drawing.Point(77, 195);
+            this.comboBox1.Location = new System.Drawing.Point(77, 208);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(64, 20);
             this.comboBox1.TabIndex = 4;
@@ -182,7 +196,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 197);
+            this.label1.Location = new System.Drawing.Point(9, 211);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 3;
@@ -190,32 +204,51 @@
             // 
             // listView1
             // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
             this.listView1.HideSelection = false;
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem4,
-            listViewItem5,
-            listViewItem6,
-            listViewItem7});
-            this.listView1.Location = new System.Drawing.Point(7, 86);
+            this.listView1.Location = new System.Drawing.Point(6, 76);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(238, 97);
+            this.listView1.Size = new System.Drawing.Size(270, 110);
             this.listView1.TabIndex = 2;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "序号";
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "分词";
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "词性";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "基本词  ";
+            this.columnHeader4.Width = 80;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(147, 47);
+            this.button1.Location = new System.Drawing.Point(178, 47);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(98, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "词法分析";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(7, 20);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(238, 21);
+            this.textBox1.Size = new System.Drawing.Size(269, 21);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = "我们在北航学习人工智能";
             // 
@@ -228,13 +261,12 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.textBox5);
             this.groupBox2.Controls.Add(this.textBox4);
-            this.groupBox2.Location = new System.Drawing.Point(286, 24);
+            this.groupBox2.Location = new System.Drawing.Point(322, 24);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(325, 151);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "短文本相似度";
-            this.groupBox2.Enter += new System.EventHandler(this.GroupBox2_Enter);
             // 
             // textBox6
             // 
@@ -291,7 +323,6 @@
             this.textBox5.Size = new System.Drawing.Size(146, 79);
             this.textBox5.TabIndex = 1;
             this.textBox5.Text = "创建账号后，需要在调用AI之前创建应用程序。这是呼叫服务的基本能力单位。这是不可或缺的";
-            this.textBox5.TextChanged += new System.EventHandler(this.TextBox5_TextChanged);
             // 
             // textBox4
             // 
@@ -312,7 +343,7 @@
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.textBox14);
             this.groupBox3.Controls.Add(this.label9);
-            this.groupBox3.Location = new System.Drawing.Point(633, 22);
+            this.groupBox3.Location = new System.Drawing.Point(673, 24);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(239, 513);
             this.groupBox3.TabIndex = 2;
@@ -321,7 +352,7 @@
             // 
             // textBox16
             // 
-            this.textBox16.Location = new System.Drawing.Point(6, 365);
+            this.textBox16.Location = new System.Drawing.Point(6, 355);
             this.textBox16.Multiline = true;
             this.textBox16.Name = "textBox16";
             this.textBox16.Size = new System.Drawing.Size(225, 139);
@@ -330,7 +361,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 343);
+            this.label11.Location = new System.Drawing.Point(6, 328);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(53, 12);
             this.label11.TabIndex = 14;
@@ -338,7 +369,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(123, 308);
+            this.button10.Location = new System.Drawing.Point(124, 293);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(110, 23);
             this.button10.TabIndex = 13;
@@ -347,7 +378,7 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(8, 308);
+            this.button9.Location = new System.Drawing.Point(8, 293);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(110, 23);
             this.button9.TabIndex = 12;
@@ -359,7 +390,7 @@
             this.textBox15.Location = new System.Drawing.Point(8, 106);
             this.textBox15.Multiline = true;
             this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(225, 188);
+            this.textBox15.Size = new System.Drawing.Size(225, 181);
             this.textBox15.TabIndex = 11;
             this.textBox15.Text = "欧洲冠军联赛是欧洲足球协会联盟主办的年度足球比赛，代表欧洲俱乐部最高荣誉和水平，被认为是全世界最高素质、最具影响力以及最高水平的俱乐部赛事，亦是世界上奖金最高的足" +
     "球赛事和体育赛事之一。";
@@ -398,7 +429,7 @@
             this.groupBox4.Controls.Add(this.comboBox3);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.textBox7);
-            this.groupBox4.Location = new System.Drawing.Point(286, 181);
+            this.groupBox4.Location = new System.Drawing.Point(322, 181);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(325, 202);
             this.groupBox4.TabIndex = 3;
@@ -476,7 +507,7 @@
             this.groupBox5.Controls.Add(this.textBox10);
             this.groupBox5.Controls.Add(this.button7);
             this.groupBox5.Controls.Add(this.textBox9);
-            this.groupBox5.Location = new System.Drawing.Point(286, 389);
+            this.groupBox5.Location = new System.Drawing.Point(324, 390);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(146, 145);
             this.groupBox5.TabIndex = 4;
@@ -517,7 +548,7 @@
             this.groupBox6.Controls.Add(this.label8);
             this.groupBox6.Controls.Add(this.label7);
             this.groupBox6.Controls.Add(this.label6);
-            this.groupBox6.Location = new System.Drawing.Point(438, 389);
+            this.groupBox6.Location = new System.Drawing.Point(474, 389);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(173, 145);
             this.groupBox6.TabIndex = 5;
@@ -530,7 +561,6 @@
             this.textBox13.Name = "textBox13";
             this.textBox13.Size = new System.Drawing.Size(130, 21);
             this.textBox13.TabIndex = 12;
-            this.textBox13.TextChanged += new System.EventHandler(this.TextBox13_TextChanged);
             // 
             // button8
             // 
@@ -584,18 +614,18 @@
             this.label6.TabIndex = 6;
             this.label6.Text = "词1";
             // 
-            // naturalSpeech
+            // naturalLanguage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 561);
+            this.ClientSize = new System.Drawing.Size(934, 561);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "naturalSpeech";
+            this.Name = "naturalLanguage";
             this.Text = "自然语言处理";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -621,7 +651,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox comboBox1;
@@ -663,6 +692,14 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.TreeView treeView1;
     }
 }
 
