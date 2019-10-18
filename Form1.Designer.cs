@@ -66,14 +66,12 @@
             this.textBox14 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
             this.button7 = new System.Windows.Forms.Button();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -84,6 +82,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -154,6 +154,7 @@
             this.button3.TabIndex = 8;
             this.button3.Text = "DNN语音模型";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Button3_Click);
             // 
             // textBox3
             // 
@@ -292,6 +293,7 @@
             this.button4.TabIndex = 6;
             this.button4.Text = "短文本相识度";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
             // comboBox2
             // 
@@ -375,6 +377,7 @@
             this.button10.TabIndex = 13;
             this.button10.Text = "文章分类";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.Button10_Click);
             // 
             // button9
             // 
@@ -384,6 +387,7 @@
             this.button9.TabIndex = 12;
             this.button9.Text = "文章标签";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.Button9_Click);
             // 
             // textBox15
             // 
@@ -392,8 +396,8 @@
             this.textBox15.Name = "textBox15";
             this.textBox15.Size = new System.Drawing.Size(225, 181);
             this.textBox15.TabIndex = 11;
-            this.textBox15.Text = "欧洲冠军联赛是欧洲足球协会联盟主办的年度足球比赛，代表欧洲俱乐部最高荣誉和水平，被认为是全世界最高素质、最具影响力以及最高水平的俱乐部赛事，亦是世界上奖金最高的足" +
-    "球赛事和体育赛事之一。";
+            this.textBox15.Text = "欧洲冠军联赛是欧洲足球协会联盟主办的年度足球比赛，代表欧洲俱乐部足球最高荣誉和水平，被认为是全世界最高素质、最具影响力以及最高水平的俱乐部赛事，亦是世界上奖金最高" +
+    "的足球赛事和体育赛事之一。";
             // 
             // label10
             // 
@@ -423,7 +427,7 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.textBox8);
+            this.groupBox4.Controls.Add(this.richTextBox1);
             this.groupBox4.Controls.Add(this.button6);
             this.groupBox4.Controls.Add(this.button5);
             this.groupBox4.Controls.Add(this.comboBox3);
@@ -436,14 +440,6 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "评论观点抽取/情感倾向分析";
             // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(7, 113);
-            this.textBox8.Multiline = true;
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(308, 79);
-            this.textBox8.TabIndex = 9;
-            // 
             // button6
             // 
             this.button6.Location = new System.Drawing.Point(244, 84);
@@ -452,6 +448,7 @@
             this.button6.TabIndex = 8;
             this.button6.Text = "情感倾向分析";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.Button6_Click);
             // 
             // button5
             // 
@@ -461,13 +458,13 @@
             this.button5.TabIndex = 7;
             this.button5.Text = "评论观点抽取";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.Button5_Click);
             // 
             // comboBox3
             // 
             this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Items.AddRange(new object[] {
-            "汽车",
             "酒店",
             "KTV",
             "丽人",
@@ -477,7 +474,9 @@
             "教育",
             "商业",
             "房产",
+            "汽车",
             "生活",
+            "购物",
             "3C"});
             this.comboBox3.Location = new System.Drawing.Point(42, 86);
             this.comboBox3.Name = "comboBox3";
@@ -500,11 +499,11 @@
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(308, 55);
             this.textBox7.TabIndex = 0;
-            this.textBox7.Text = "个人觉得这车不错，外观漂亮年轻，动力和操控性都不错";
+            this.textBox7.Text = "个人觉得这车不错，外观漂亮年轻，动力和操控性都很好";
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.textBox10);
+            this.groupBox5.Controls.Add(this.richTextBox2);
             this.groupBox5.Controls.Add(this.button7);
             this.groupBox5.Controls.Add(this.textBox9);
             this.groupBox5.Location = new System.Drawing.Point(324, 390);
@@ -514,22 +513,15 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "词向量";
             // 
-            // textBox10
-            // 
-            this.textBox10.Location = new System.Drawing.Point(6, 49);
-            this.textBox10.Multiline = true;
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(127, 79);
-            this.textBox10.TabIndex = 10;
-            // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(77, 18);
+            this.button7.Location = new System.Drawing.Point(84, 20);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(56, 23);
             this.button7.TabIndex = 10;
             this.button7.Text = "词向量";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.Button7_Click);
             // 
             // textBox9
             // 
@@ -570,6 +562,7 @@
             this.button8.TabIndex = 11;
             this.button8.Text = "词义相似度";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.Button8_Click);
             // 
             // textBox12
             // 
@@ -613,6 +606,22 @@
             this.label6.Size = new System.Drawing.Size(23, 12);
             this.label6.TabIndex = 6;
             this.label6.Text = "词1";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(11, 116);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(306, 76);
+            this.richTextBox1.TabIndex = 9;
+            this.richTextBox1.Text = "";
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Location = new System.Drawing.Point(4, 48);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(136, 80);
+            this.richTextBox2.TabIndex = 11;
+            this.richTextBox2.Text = "";
             // 
             // naturalLanguage
             // 
@@ -666,7 +675,6 @@
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.ComboBox comboBox3;
@@ -682,7 +690,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBox14;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TextBox textBox13;
@@ -700,6 +707,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBox2;
     }
 }
 

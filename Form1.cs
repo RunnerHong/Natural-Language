@@ -2,12 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
@@ -176,7 +171,7 @@ namespace WindowsFormsApp1
             InitializeComponent();
             comboBox1.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
-            comboBox3.SelectedIndex = 0;
+            comboBox3.SelectedIndex = 9;
             client.Timeout = 60000;  // 修改百度接口超时时间
         }
 
@@ -190,7 +185,7 @@ namespace WindowsFormsApp1
             }
             catch(Exception e)
             {
-                MessageBox.Show("error:" + e, "wrong", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("error:" + e.Message, "wrong", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }            
             RenderLexerResult(result);
@@ -233,7 +228,7 @@ namespace WindowsFormsApp1
             }
             catch (Exception e)
             {
-                MessageBox.Show("error:" + e, "wrong", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("error:" + e.Message, "wrong", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             RenderDepResult(result);
@@ -291,6 +286,305 @@ namespace WindowsFormsApp1
         private void Button2_Click(object sender, EventArgs e)
         {
             DepParser();
+        }
+
+        public void DnnlmCn()
+        {
+            var text = textBox1.Text;
+            JObject result = new JObject();
+            try
+            {
+                result = client.DnnlmCn(text);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("error:" + e.Message, "wrong", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            RenderDnnlmCnResult(result);
+        }
+
+        public void RenderDnnlmCnResult(JObject result)
+        {
+            result.TryGetValue("items", out JToken items);
+            result.TryGetValue("ppl", out JToken ppl);
+            textBox3.Text = ppl.ToString();
+            int index = 1;
+            foreach (var item in items)
+            {
+                listView2.Items.Add(new ListViewItem(
+                    new string[] {index.ToString(), item["word"].ToString(), item["prob"].ToString() }));
+                index += 1;
+            }
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            DnnlmCn();
+        }
+
+        public void Simnet()
+        {
+            var text1 = textBox4.Text;  
+            var text2 = textBox5.Text;
+            JObject result = new JObject();
+
+            var options = new Dictionary<string, object>{
+                {"model", comboBox2.SelectedItem}
+            };
+            try
+            {
+                result = client.Simnet(text1, text2, options);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("error:" + e.Message, "wrong", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            result.TryGetValue("score", out JToken score);
+            textBox6.Text = score.ToString();
+        }
+
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            Simnet();
+        }
+
+        public void CommentTag()
+        {
+            var text = textBox7.Text.Trim();
+            JObject result = new JObject();
+
+            var options = new Dictionary<string, object>{
+                {"type", comboBox3.SelectedIndex == 2 ? comboBox3.SelectedIndex : comboBox3.SelectedIndex + 1}
+            };
+            try
+            {
+                result = client.CommentTag(text, options);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("error:" + e.Message, "wrong", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            RenderCommentTagResult(result);
+        }
+
+        public void RenderCommentTagResult(JObject result)
+        {
+            if (result.TryGetValue("error_msg", out JToken errorMsg))
+            {
+                richTextBox1.Text = errorMsg.ToString();
+            }
+            else
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (JToken item in result["items"])
+                {
+                    if (stringBuilder.Length != 0)
+                    {
+                        stringBuilder.AppendLine("---------------------------------------");
+                    }
+                    stringBuilder.AppendLine(string.Format("观点倾向：{0}\r\n短句摘要：{1}\r\n匹配属性词：{2}\r\n匹配描述词：{3}", new object[]
+                    {
+                            (item.Value<int>("sentiment") == 0) ? "消极" : ((result.Value<int>("sentiment") == 1) ? "中性" : "积极"),
+                            item["abstract"],
+                            item["prop"],
+                            item["adj"]
+                    }));
+                }
+                richTextBox1.Text = stringBuilder.ToString();
+            }
+        }
+
+        private void Button5_Click(object sender, EventArgs e)
+        {
+            CommentTag();
+        }
+
+        public void SentimentClassify()
+        {
+            var text = textBox7.Text.Trim();
+            JObject result = new JObject();
+
+            try
+            {
+                result = client.SentimentClassify(text);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("error:" + e.Message, "wrong", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            RenderSentimentClassifyResult(result);
+        }
+
+        public void RenderSentimentClassifyResult(JObject result)
+        {
+            if (result.TryGetValue("error_msg", out JToken errorMsg))
+            {
+                richTextBox1.Text = errorMsg.ToString();
+            }
+            else
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (JToken item in result["items"])
+                {
+                    if (stringBuilder.Length != 0)
+                    {
+                        stringBuilder.AppendLine("---------------------------------------");
+                    }
+                    stringBuilder.AppendLine(string.Format("情感倾向：{0}\r\n置信度：{1}", new object[]
+                    {
+                            (item.Value<int>("sentiment") == 0) ? "消极" : ((result.Value<int>("sentiment") == 1) ? "中性" : "积极"),
+                            item["confidence"]
+                    }));
+                }
+                richTextBox1.Text = stringBuilder.ToString();
+            }
+        }
+
+        private void Button6_Click(object sender, EventArgs e)
+        {
+            SentimentClassify();
+        }
+
+        public void WordEmbedding()
+        {
+            var word = textBox9.Text.Trim();
+            JObject result = new JObject();
+
+            try
+            {
+                result = client.WordEmbedding(word);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("error:" + e.Message, "wrong", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            RenderWordEmbeddingResult(result);
+        }
+
+        public void RenderWordEmbeddingResult(JObject result)
+        {
+            if (result.TryGetValue("error_msg", out JToken errorMsg))
+            {
+                richTextBox2.Text = errorMsg.ToString();
+            }
+            else
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (JToken item in result["vec"])
+                {
+                    stringBuilder.AppendLine(item.ToString());
+                }
+                richTextBox2.Text = stringBuilder.ToString();
+            }
+        }
+
+        private void Button7_Click(object sender, EventArgs e)
+        {
+            WordEmbedding();
+        }
+
+        public void WordSimEmbedding()
+        {
+            var word1 = textBox11.Text.Trim();
+            var word2 = textBox12.Text.Trim();
+            JObject result = new JObject();
+            try
+            {
+                result = client.WordSimEmbedding(word1, word2);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("error:" + e.Message, "wrong", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            result.TryGetValue("score", out JToken score);
+            textBox13.Text = score.ToString();
+        }
+
+        private void Button8_Click(object sender, EventArgs e)
+        {
+            WordSimEmbedding();
+        }
+
+        public void Keyword()
+        {
+            var title = textBox14.Text.Trim();
+
+            var content = textBox15.Text.Trim();
+
+            JObject result = new JObject();
+            try
+            {
+                result = client.Keyword(title, content);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("error:" + e.Message, "wrong", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (JToken item in result["items"])
+            {
+                stringBuilder.AppendLine(string.Format("{0}:{1}", item["tag"].ToString(), item["score"].ToString()));
+            }
+            textBox16.Text = stringBuilder.ToString();
+        }
+
+        private void Button9_Click(object sender, EventArgs e)
+        {
+            Keyword();
+        }
+
+        public void Topic()
+        {
+            var title = textBox14.Text.Trim();
+
+            var content = textBox15.Text.Trim();
+
+            JObject result = new JObject();
+            try
+            {
+                result = client.Topic(title, content);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("error:" + e.Message, "wrong", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            RenderTopicResult(result);
+        }
+
+        public void RenderTopicResult(JObject result)
+        {
+            if (result.TryGetValue("error_msg", out JToken errorMsg))
+            {
+                richTextBox1.Text = errorMsg.ToString();
+            }
+            else
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine("一级分类结果：");
+                foreach (JToken lv1 in ((IEnumerable<JToken>)result["item"]["lv1_tag_list"]))
+                {
+                    stringBuilder.AppendLine(string.Format("    {0}：{1}", lv1["tag"], lv1["score"]));
+                }
+                stringBuilder.AppendLine("二级分类结果：");
+                foreach (JToken lv2 in ((IEnumerable<JToken>)result["item"]["lv2_tag_list"]))
+                {
+                    stringBuilder.AppendLine(string.Format("    {0}：{1}", lv2["tag"], lv2["score"]));
+                }
+                textBox16.Text = stringBuilder.ToString();
+            }
+        }
+
+        private void Button10_Click(object sender, EventArgs e)
+        {
+            Topic();
         }
     }
 }
